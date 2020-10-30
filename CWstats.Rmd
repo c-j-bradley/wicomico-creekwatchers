@@ -1,0 +1,320 @@
+---
+title: "CWstats"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+#Nitrate comparisons over long term decadal
+Grp<-split(AllCW, f=AllCW$Group)
+
+
+ttP<-t.test(Ponds3$NO3 ~ Ponds3$Decade)
+ttU<-t.test(TF3$NO3 ~ TF3$Decade)
+ttL<-t.test(OH3$NO3 ~ OH3$Decade)
+ttC<-t.test(MH3$NO3 ~ MH3$Decade)
+library(broom)
+library(purrr)
+library(knitr)
+tab <- map_df(list(ttP,ttU,ttL,ttC), tidy)
+kable(tab, caption="Nitrate Decade Comparison")
+```
+
+```{r}
+#Nitrate comparisons present to last year
+Ponds4 <-rbind(Ponds18,Ponds19)
+TF4 <-rbind(TF18,TF19)
+OH4 <-rbind(OH18,OH19)
+MH4 <-rbind(MH18,MH19)
+Ponds4$Year <- as.numeric(format(Ponds4$DATE,format="%Y"))
+TF4$Year <- as.numeric(format(TF4$DATE,format="%Y"))
+OH4$Year <- as.numeric(format(OH4$DATE,format="%Y"))
+MH4$Year <- as.numeric(format(MH4$DATE,format="%Y"))
+
+ttP<-t.test(Ponds4$NO3 ~ Ponds4$Year)
+ttU<-t.test(TF4$NO3 ~ TF4$Year)
+ttL<-t.test(OH4$NO3 ~ OH4$Year)
+ttC<-t.test(MH4$NO3 ~ MH4$Year)
+
+library(broom)
+library(purrr)
+library(knitr)
+tab <- map_df(list(ttP,ttU,ttL,ttC), tidy)
+kable(tab, caption="Nitrate Comparison to Last Year")
+```
+
+```{r}
+#Phosphate comparisons over long term decadal
+Grp<-split(AllCW, f=AllCW$Group)
+
+
+ttP<-t.test(Ponds3$PO4 ~ Ponds3$Decade)
+ttU<-t.test(TF3$PO4 ~ TF3$Decade)
+ttL<-t.test(OH3$PO4 ~ OH3$Decade)
+ttC<-t.test(MH3$PO4 ~ MH3$Decade)
+library(broom)
+library(purrr)
+library(knitr)
+PO4tab <- map_df(list(ttP,ttU,ttL,ttC), tidy)
+kable(PO4tab, caption="Phosphate Decade Comparison")
+```
+
+```{r}
+#Phosphate comparisons present to last year
+Ponds4 <-rbind(Ponds18,Ponds19)
+TF4 <-rbind(TF18,TF19)
+OH4 <-rbind(OH18,OH19)
+MH4 <-rbind(MH18,MH19)
+Ponds4$Year <- as.numeric(format(Ponds4$DATE,format="%Y"))
+TF4$Year <- as.numeric(format(TF4$DATE,format="%Y"))
+OH4$Year <- as.numeric(format(OH4$DATE,format="%Y"))
+MH4$Year <- as.numeric(format(MH4$DATE,format="%Y"))
+
+ttP<-t.test(Ponds4$PO4 ~ Ponds4$Year)
+ttU<-t.test(TF4$PO4 ~ TF4$Year)
+ttL<-t.test(OH4$PO4 ~ OH4$Year)
+ttC<-t.test(MH4$PO4 ~ MH4$Year)
+
+library(broom)
+library(purrr)
+library(knitr)
+tab <- map_df(list(ttP,ttU,ttL,ttC), tidy)
+kable(tab, caption="Phosphate Comparison to Last Year")
+```
+
+```{r}
+#Chlorophyll comparisons over long term decadal
+Grp<-split(AllCW, f=AllCW$Group)
+
+
+ttP<-t.test(Ponds3$Chla ~ Ponds3$Decade)
+ttU<-t.test(TF3$Chla ~ TF3$Decade)
+ttL<-t.test(OH3$Chla ~ OH3$Decade)
+ttC<-t.test(MH3$Chla ~ MH3$Decade)
+library(broom)
+library(purrr)
+library(knitr)
+Chlatab <- map_df(list(ttP,ttU,ttL,ttC), tidy)
+kable(Chlatab, caption="Chlorophyll Decade Comparison")
+
+
+```
+```{r}
+#Chla comparisons present to last year
+Ponds4 <-rbind(Ponds18,Ponds19)
+TF4 <-rbind(TF18,TF19)
+OH4 <-rbind(OH18,OH19)
+MH4 <-rbind(MH18,MH19)
+Ponds4$Year <- as.numeric(format(Ponds4$DATE,format="%Y"))
+TF4$Year <- as.numeric(format(TF4$DATE,format="%Y"))
+OH4$Year <- as.numeric(format(OH4$DATE,format="%Y"))
+MH4$Year <- as.numeric(format(MH4$DATE,format="%Y"))
+
+ttP<-t.test(Ponds4$Chla ~ Ponds4$Year)
+ttU<-t.test(TF4$Chla ~ TF4$Year)
+ttL<-t.test(OH4$Chla ~ OH4$Year)
+ttC<-t.test(MH4$Chla ~ MH4$Year)
+
+library(broom)
+library(purrr)
+library(knitr)
+tab <- map_df(list(ttP,ttU,ttL,ttC), tidy)
+kable(tab, caption="Chlorophyll Comparison to Last Year")
+```
+
+
+```{r}
+#Turbidity comparisons over long term decadal
+Grp<-split(AllCW, f=AllCW$Group)
+
+
+ttP<-t.test(Ponds3$Secchi ~ Ponds3$Decade)
+ttU<-t.test(TF3$Secchi ~ TF3$Decade)
+ttL<-t.test(OH3$Secchi ~ OH3$Decade)
+ttC<-t.test(MH3$Secchi ~ MH3$Decade)
+library(broom)
+library(purrr)
+library(knitr)
+Secchitab <- map_df(list(ttP,ttU,ttL,ttC), tidy)
+kable(Secchitab, caption="Turbidity Decade Comparison")
+
+
+```
+
+```{r}
+#Turbidity comparisons present to last year
+Ponds4 <-rbind(Ponds18,Ponds19)
+TF4 <-rbind(TF18,TF19)
+OH4 <-rbind(OH18,OH19)
+MH4 <-rbind(MH18,MH19)
+Ponds4$Year <- as.numeric(format(Ponds4$DATE,format="%Y"))
+TF4$Year <- as.numeric(format(TF4$DATE,format="%Y"))
+OH4$Year <- as.numeric(format(OH4$DATE,format="%Y"))
+MH4$Year <- as.numeric(format(MH4$DATE,format="%Y"))
+
+ttP<-t.test(Ponds4$Secchi ~ Ponds4$Year)
+ttU<-t.test(TF4$Secchi ~ TF4$Year)
+ttL<-t.test(OH4$Secchi ~ OH4$Year)
+ttC<-t.test(MH4$Secchi ~ MH4$Year)
+
+library(broom)
+library(purrr)
+library(knitr)
+tab <- map_df(list(ttP,ttU,ttL,ttC), tidy)
+kable(tab, caption="Secchi Depth Comparison to Last Year")
+```
+
+```{r}
+#Temp comparisons over long term decadal
+Grp<-split(AllCW, f=AllCW$Group)
+
+
+ttP<-t.test(as.numeric(Ponds3$WTemp) ~ Ponds3$Decade)
+ttU<-t.test(as.numeric(TF3$WTemp) ~ TF3$Decade)
+ttL<-t.test(as.numeric(OH3$WTemp) ~ OH3$Decade)
+ttC<-t.test(as.numeric(MH3$WTemp) ~ MH3$Decade)
+library(broom)
+library(purrr)
+library(knitr)
+WTemptab <- map_df(list(ttP,ttU,ttL,ttC), tidy)
+kable(WTemptab, caption="Water Temp Decade Comparison")
+
+```
+
+```{r}
+#Temperature comparisons present to last year
+Ponds4 <-rbind(Ponds18,Ponds19)
+TF4 <-rbind(TF18,TF19)
+OH4 <-rbind(OH18,OH19)
+MH4 <-rbind(MH18,MH19)
+Ponds4$Year <- as.numeric(format(Ponds4$DATE,format="%Y"))
+TF4$Year <- as.numeric(format(TF4$DATE,format="%Y"))
+OH4$Year <- as.numeric(format(OH4$DATE,format="%Y"))
+MH4$Year <- as.numeric(format(MH4$DATE,format="%Y"))
+
+ttP<-t.test(as.numeric(Ponds4$WTemp) ~ Ponds4$Year)
+ttU<-t.test(as.numeric(TF4$WTemp) ~ TF4$Year)
+ttL<-t.test(as.numeric(OH4$WTemp) ~ OH4$Year)
+ttC<-t.test(as.numeric(MH4$WTemp) ~ MH4$Year)
+
+library(broom)
+library(purrr)
+library(knitr)
+tab <- map_df(list(ttP,ttU,ttL,ttC), tidy)
+kable(tab, caption="Water Temperature Comparison to Last Year")
+```
+
+```{r}
+#pH comparisons over long term decadal
+Grp<-split(AllCW, f=AllCW$Group)
+
+
+ttP<-t.test(as.numeric(Ponds3$pH) ~ Ponds3$Decade)
+ttU<-t.test(as.numeric(TF3$pH) ~ TF3$Decade)
+ttL<-t.test(as.numeric(OH3$pH) ~ OH3$Decade)
+ttC<-t.test(as.numeric(MH3$pH) ~ MH3$Decade)
+library(broom)
+library(purrr)
+library(knitr)
+pHtab <- map_df(list(ttP,ttU,ttL,ttC), tidy)
+kable(pHtab, caption="pH Decade Comparison")
+```
+
+```{r}
+#pH comparisons present to last year
+Ponds4 <-rbind(Ponds18,Ponds19)
+TF4 <-rbind(TF18,TF19)
+OH4 <-rbind(OH18,OH19)
+MH4 <-rbind(MH18,MH19)
+Ponds4$Year <- as.numeric(format(Ponds4$DATE,format="%Y"))
+TF4$Year <- as.numeric(format(TF4$DATE,format="%Y"))
+OH4$Year <- as.numeric(format(OH4$DATE,format="%Y"))
+MH4$Year <- as.numeric(format(MH4$DATE,format="%Y"))
+
+ttP<-t.test(as.numeric(Ponds4$pH) ~ Ponds4$Year)
+ttU<-t.test(as.numeric(TF4$pH) ~ TF4$Year)
+ttL<-t.test(as.numeric(OH4$pH) ~ OH4$Year)
+ttC<-t.test(as.numeric(MH4$pH) ~ MH4$Year)
+
+library(broom)
+library(purrr)
+library(knitr)
+tab <- map_df(list(ttP,ttU,ttL,ttC), tidy)
+kable(tab, caption="pH Comparison to Last Year")
+```
+```{r}
+#Bact comparisons over long term decadal
+LTAbst<-rbind(BST2012,BST2013,BST2014,BST2015,BST2016,BST2017)
+colnames(LTAbst)<-c("Date","Site","Bacteria","Month")
+LTAbact<-rbind(LTAbst,BST2018)
+LTAbact$Year<-as.numeric(format(LTAbact$Date,format="%Y"))
+LTAbact$Decade <- floor_decade(LTAbact$Year)
+BST2019$Year<-as.numeric(format(BST2019$Date,format="%Y"))
+BST2019$Decade<-("2019")
+AllBact<-rbind(LTAbact,BST2019)
+Loc<-split(AllBact, f=AllBact$Site)
+PondsBST<-rbind(Loc$`2`,Loc$`3`,Loc$`6`)
+TFBST<-rbind(Loc$`11`,Loc$`27`)
+OHBST<-rbind(Loc$`21`,Loc$`17`)
+MHBST<-rbind(Loc$`28`)
+
+
+ttP<-t.test(as.numeric(PondsBST$Bacteria) ~ PondsBST$Decade)
+ttU<-t.test(as.numeric(TFBST$Bacteria) ~ TFBST$Decade)
+ttL<-t.test(as.numeric(OHBST$Bacteria) ~ OHBST$Decade)
+ttC<-t.test(as.numeric(MHBST$Bacteria) ~ MHBST$Decade)
+library(broom)
+library(purrr)
+library(knitr)
+BSTtab <- map_df(list(ttP,ttU,ttL,ttC), tidy)
+kable(BSTtab, caption="BST Decade Comparison")
+```
+
+
+```{r}
+#BST comparisons present to last year
+Ponds4 <-rbind(Ponds18,Ponds19)
+TF4 <-rbind(TF18,TF19)
+OH4 <-rbind(OH18,OH19)
+MH4 <-rbind(MH18,MH19)
+Ponds4$Year <- as.numeric(format(Ponds4$DATE,format="%Y"))
+TF4$Year <- as.numeric(format(TF4$DATE,format="%Y"))
+OH4$Year <- as.numeric(format(OH4$DATE,format="%Y"))
+MH4$Year <- as.numeric(format(MH4$DATE,format="%Y"))
+
+ttP<-t.test(as.numeric(Ponds4$BST) ~ Ponds4$Year)
+ttU<-t.test(as.numeric(TF4$BST) ~ TF4$Year)
+ttL<-t.test(as.numeric(OH4$BST) ~ OH4$Year)
+ttC<-t.test(as.numeric(MH4$BST) ~ MH4$Year)
+
+library(broom)
+library(purrr)
+library(knitr)
+tab <- map_df(list(ttP,ttU,ttL,ttC), tidy)
+kable(tab, caption="BST Comparison to Last Year")
+```
+
+
